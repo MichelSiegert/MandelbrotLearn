@@ -1,3 +1,5 @@
+import Function.Function;
+import Function.FunctionPart;
 import GUI.Gui;
 import complex_numbers.Complex;
 import processing.core.PApplet;
@@ -8,13 +10,7 @@ public class Main extends PApplet {
   
   public static void main(String[] args) {
 	gui = new Gui();
-	Complex c = new Complex(0,1);
-	c.mul(c).complexString();
 	
-	c.pow(4).complexString();
-	c.div(c).complexString();
-	c.add(c).complexString();
-	c.sub(c).complexString();
 	
   }
   

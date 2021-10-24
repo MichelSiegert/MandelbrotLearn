@@ -61,4 +61,12 @@ public class Complex {
   public double getReal() { return real; }
   
   public double getImg(){ return img;}
+  
+  public Complex mul(int multiplier) {
+    return this.mul(new Complex(multiplier,0));
+  }
+  
+  public Complex div(int degree) {
+    return this.div(new Complex(degree,0));
+  }
 }

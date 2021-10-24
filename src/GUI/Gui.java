@@ -17,8 +17,12 @@ public class Gui extends PApplet {
   public void setup(PApplet p) {
 	Gui.p = p;
 	inputSpace = new Grid(0, 0, p);
-	inputSpace.setXValues(-5, 5);
-	inputSpace.setYValues(-5, 5);
+	try {
+	  inputSpace.setXValues(-5, 5);
+	  inputSpace.setYValues(-5, 5);
+	} catch (Exception e) {
+	  System.out.println(e);
+	}
 	inputSpace.addPoint(new Complex(-1, 1));
 	
 	outputSpace = new Grid(1, 1, p);

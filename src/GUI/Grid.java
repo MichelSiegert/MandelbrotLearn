@@ -19,14 +19,23 @@ public class Grid {
 	this.p = p;
   }
   
-  public void setXValues(int x1, int x2) {
-	this.x1 = x1;
-	this.x2 = x2;
+  public void setXValues(int x1, int x2) throws Exception {
+	if (x1 != x2) {
+	  this.x1 = x1;
+	  this.x2 = x2;
+	} else {
+	  throw new Exception("can't create a scale on a single value");
+	}
   }
   
-  public void setYValues(int y1, int y2) {
-	this.y1 = y1;
-	this.y2 = y2;
+  public void setYValues(int y1, int y2) throws Exception {
+	if (y1 != y2) {
+	  this.y1 = y1;
+	  this.y2 = y2;
+	} else {
+	  throw new Exception("can't create a scale on a single value");
+	}
+	
   }
   
   public void addPoint(Complex p) {
