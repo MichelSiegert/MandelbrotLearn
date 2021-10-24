@@ -30,4 +30,24 @@ public class Function {
 	System.out.println("");
   }
   
+  public Function getDerivative()
+  {
+	Function f = this;
+	for (int i=0; i < f.function.size(); i++)
+	{
+	  f.function.set(i,f.function.get(i).calculateDerivative());
+	}
+	return f;
+  }
+  
+  public Function getIntegral()
+  {
+	Function f = this;
+	for (int i=0; i < f.function.size(); i++)
+	{
+	  f.function.set(i,f.function.get(i).calculateIntegral());
+	}
+	return f;
+  }
+  
 }
