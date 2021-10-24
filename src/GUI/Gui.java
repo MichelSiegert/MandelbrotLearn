@@ -12,7 +12,7 @@ public class Gui extends PApplet {
   private Grid inputSpace;
   private Grid outputSpace;
   Function f = new Function();
-  
+  public static final int NUMITERATIONS =50;
   public Gui() {
 	
 	PApplet.main("Main", null);
@@ -38,10 +38,14 @@ public class Gui extends PApplet {
 	}
 	
 	f.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-	f.addFunctionPart(new FunctionPart(new Complex(1, 0), 0));
-	Complex cResult = f.CalculateValueOfFunction(c);
+	f.addFunctionPart(new FunctionPart(new Complex(-1, 0), 0));
+	Complex cResult = c;
 	
-	outputSpace.addPoint(cResult);
+	for (int i=0; i< NUMITERATIONS; i++)
+	{
+	  cResult = f.CalculateValueOfFunction(cResult);
+	  outputSpace.addPoint(cResult);
+	}
   }
   
   public void draw() {
@@ -50,8 +54,13 @@ public class Gui extends PApplet {
 	  Complex cursor = inputSpace.calculateValue();
 	  inputSpace.setPoint(0, cursor);
 	  
-	  Complex cursorResult = f.CalculateValueOfFunction(cursor);
-	  outputSpace.setPoint(0, cursorResult);
+	  Complex cursorResult = cursor;
+	  for(int i=0; i< NUMITERATIONS; i++)
+	  {
+	    cursorResult = f.CalculateValueOfFunction(cursorResult);
+		outputSpace.setPoint(i, cursorResult);
+	  
+	  }
 	}
 	
 	inputSpace.drawGrid();
