@@ -58,4 +58,7 @@ public class Complex {
 	System.out.println("real: " + real + ", imaginary: " + img);
   }
   
+  public double getReal() { return real; }
+  
+  public double getImg(){ return img;}
 }
