@@ -1,13 +1,17 @@
 package GUI;
 
+import Function.Function;
+import Function.FunctionPart;
 import complex_numbers.Complex;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 
 public class Gui extends PApplet {
   private static PApplet p;
   private Grid inputSpace;
   private Grid outputSpace;
+  Function f = new Function();
   
   public Gui() {
 	
@@ -18,23 +22,47 @@ public class Gui extends PApplet {
 	Gui.p = p;
 	inputSpace = new Grid(0, 0, p);
 	try {
-	  inputSpace.setXValues(-5, 5);
-	  inputSpace.setYValues(-5, 5);
+	  inputSpace.setXValues(-2, 2);
+	  inputSpace.setYValues(-2, 2);
 	} catch (Exception e) {
 	  System.out.println(e);
 	}
-	inputSpace.addPoint(new Complex(-1, 1));
-	
+	Complex c = new Complex(-1, 1);
+	inputSpace.addPoint(c);
 	outputSpace = new Grid(1, 1, p);
+	try {
+	  outputSpace.setXValues(-2, 2);
+	  outputSpace.setYValues(-2, 2);
+	} catch (Exception e) {
+	  System.out.println(e);
+	}
+	
+	f.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+	f.addFunctionPart(new FunctionPart(new Complex(1, 0), 0));
+	Complex cResult = f.CalculateValueOfFunction(c);
+	
+	outputSpace.addPoint(cResult);
   }
   
   public void draw() {
 	p.background(0);
-	inputSpace.drawGrid(p);
+	if (isInsideInput()) {
+	  Complex cursor = inputSpace.calculateValue();
+	  inputSpace.setPoint(0, cursor);
+	  
+	  Complex cursorResult = f.CalculateValueOfFunction(cursor);
+	  outputSpace.setPoint(0, cursorResult);
+	}
+	
+	inputSpace.drawGrid();
 	inputSpace.drawPoints();
 	
-	outputSpace.drawGrid(p);
+	outputSpace.drawGrid();
+	outputSpace.drawPoints();
   }
   
+  boolean isInsideInput() {
+	return (p.mouseX < p.width / 2 && p.mouseY < p.height / 2);
+  }
   
 }

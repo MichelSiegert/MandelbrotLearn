@@ -54,14 +54,20 @@ public class Grid {
   }
   
   private PVector calculatePosition(Complex point) {
-	//value on a scale from -5 to 5, and I want to map it to width 2
+	//value on a scale from -5 to 5, and I want to map it to width/2
 	// same for height.
-	float xPos = p.map((float) point.getReal(), x1, x2, x * p.width / 2, x * p.width / 2 + p.width / 2);
-	float yPos = p.map((float) point.getReal(), y1, y2, y * p.height / 2, y * p.height / 2 + p.height / 2);
+	float xPos = PApplet.map((float) point.getReal(), x1, x2, x * p.width / 2, x * p.width / 2 + p.width / 2);
+	float yPos = PApplet.map((float) point.getImg(), y1, y2, y * p.height / 2, y * p.height / 2 + p.height / 2);
 	return new PVector(xPos, yPos);
   }
   
-  public void drawGrid(PApplet p) {
+  public Complex calculateValue() {
+	double real = PApplet.map(p.mouseX, x * p.width / 2, (x + 1) * p.width / 2, x1, x2);
+	double img = PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, y1, y2);
+	return new Complex(real, img);
+  }
+  
+  public void drawGrid() {
 	p.noStroke();
 	p.fill(0xff);
 	p.rect(x * p.width / 2, y * p.height / 2, p.width / 2, p.height / 2);
@@ -72,5 +78,9 @@ public class Grid {
 	p.line(-p.width / 4, 0, p.width / 4, 0);
 	p.line(0, -p.height / 4, 0, p.height / 4);
 	p.popMatrix();
+  }
+  
+  public void setPoint(int i, Complex calculateValue) {
+	points.set(i, calculateValue);
   }
 }
