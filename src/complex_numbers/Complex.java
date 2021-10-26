@@ -43,7 +43,7 @@ public class Complex {
 	return new Complex(r, i);
   }
   
-  //C1*c1
+  //c1*c1
   public Complex pow(int num) {
 	num = Math.abs(num);
 	if (num == 0) return new Complex(1, 0);

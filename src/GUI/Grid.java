@@ -6,6 +6,7 @@ import processing.core.PVector;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class Grid {
 		private PApplet p;
 		public int x, y;
@@ -59,8 +60,8 @@ public class Grid {
 		}
 		
 		public Complex mouseToComplex(PVector vec) {
-				double real = PApplet.constrain(PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, x1, x2),x1,x2);
-				double img = PApplet.constrain(PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, y1, y2),x1,x2);
+				double real = PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, x1, x2);
+				double img = PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, y1, y2);
 				return new Complex(real, img);
 		}
 		

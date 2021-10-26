@@ -98,10 +98,10 @@ public class Gui extends PApplet {
 				
 				Complex cResult = c;
 				Function fun = new Function();
-				fun.addFunctionPart(new FunctionPart(new Complex (1,0),2));
-				fun.addFunctionPart(new FunctionPart(c,0));
+				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+				fun.addFunctionPart(new FunctionPart(c, 0));
 				
-				for (int i = 1; i < NUMITERATIONS+1; i++) {
+				for (int i = 1; i < NUMITERATIONS + 1; i++) {
 						cResult = fun.CalculateValueOfFunction(cResult);
 						output.addPoint(cResult);
 				}
@@ -138,7 +138,7 @@ public class Gui extends PApplet {
 				Function function = new Function();
 				
 				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-				function.addFunctionPart(new FunctionPart(new Complex(-1, 0), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(-1.3, 0), 0));
 				
 				return function;
 		}
@@ -167,7 +167,7 @@ public class Gui extends PApplet {
 						f.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
 						f.addFunctionPart(new FunctionPart(cursor, 0));
 						
-						for (int i = 1; i < NUMITERATIONS ; i++) {
+						for (int i = 1; i < NUMITERATIONS; i++) {
 								c = f.CalculateValueOfFunction(c);
 								outputSpace.setPoint(i, c);
 						}
