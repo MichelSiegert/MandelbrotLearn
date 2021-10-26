@@ -27,14 +27,15 @@ public class Gui extends PApplet {
 				inputSpace = createInput();
 				realSpace = createRealFunction();
 				outputSpace = createOutputSpace();
-				createMandelBrot(0, 1);
+				generateFunctionSpace(0, 1);
+				generateVariableSpace(1, 0);
 		}
 		
-		private void createMandelBrot(int x, int y) {
+		private void generateVariableSpace(int x, int y) {
 				int col;
 				for (int i = x * p.width / 2; i < (x + 1) * p.width / 2; i++) {
 						for (int j = y * p.height / 2; j < (y + 1) * p.height / 2; j++) {
-								if (isInsideSet(i, j)) {
+								if (isInsideVariableSet(i, j)) {
 										col = p.color(0x88, 0, 0);
 								} else {
 										col = p.color(0x00);
@@ -44,7 +45,21 @@ public class Gui extends PApplet {
 				}
 		}
 		
-		private boolean isInsideSet(int i, int j) {
+		private void generateFunctionSpace(int x, int y) {
+				int col;
+				for (int i = x * p.width / 2; i < (x + 1) * p.width / 2; i++) {
+						for (int j = y * p.height / 2; j < (y + 1) * p.height / 2; j++) {
+								if (isInsideFunctionSet(i, j)) {
+										col = p.color(0x88, 0, 0);
+								} else {
+										col = p.color(0x00);
+								}
+								p.set(i, j, col);
+						}
+				}
+		}
+		
+		private boolean isInsideFunctionSet(int i, int j) {
 				Grid MandelBrotspace = new Grid(0, 1, p);
 				MandelBrotspace.setYValues(2);
 				MandelBrotspace.setXValues(2);
@@ -52,6 +67,25 @@ public class Gui extends PApplet {
 				for (int k = 0; k < NUMITERATIONS; k++) {
 						c = f.CalculateValueOfFunction(c);
 						if (c.dist() > 10) return false;
+				}
+				return true;
+		}
+		
+		private boolean isInsideVariableSet(int i, int j) {
+				Grid varSpace = new Grid(1, 0, p);
+				varSpace.setYValues(2);
+				varSpace.setXValues(2);
+				
+				Complex start = new Complex(0, 0);
+				Complex c = varSpace.calculateValue(new PVector(i, j));
+				
+				Function fun = new Function();
+				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
+				fun.addFunctionPart(new FunctionPart(c, 0));
+				
+				for (int k = 0; k < NUMITERATIONS; k++) {
+						start = fun.CalculateValueOfFunction(start);
+						if (start.dist() > 10) return false;
 				}
 				return true;
 		}
@@ -73,7 +107,7 @@ public class Gui extends PApplet {
 		}
 		
 		private Grid createRealFunction() {
-				Grid real = new Grid(1, 0, p);
+				Grid real = new Grid(1, 1, p);
 				real.setXValues(5);
 				real.setYValues(-Math.abs((int) f.CalculateValueOfFunction(new Complex(-5, 0)).getReal()));
 				for (float i = -5; i < 5; i += 0.01) {
@@ -84,18 +118,25 @@ public class Gui extends PApplet {
 		
 		private Grid createInput() {
 				Grid input = new Grid(0, 0, p);
-				input.setXValues(1);
-				input.setYValues(1);
+				input.setXValues(2);
+				input.setYValues(2);
 				Complex c = new Complex(-1, 1);
 				input.addPoint(c);
+				
+				Complex cResult = c;
+				
+				for (int i = 1; i < NUMITERATIONS+1; i++) {
+						cResult = f.CalculateValueOfFunction(cResult);
+						input.addPoint(cResult);
+				}
 				return input;
 		}
 		
 		private Function createFunction() {
 				Function function = new Function();
 				
-				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-				function.addFunctionPart(new FunctionPart(new Complex(-1,0 ), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
+				function.addFunctionPart(new FunctionPart(new Complex(0.42, 0), 0));
 				
 				return function;
 		}
@@ -104,7 +145,6 @@ public class Gui extends PApplet {
 				cursorPosition();
 				inputSpace.draw();
 				realSpace.draw();
-				outputSpace.draw();
 		}
 		
 		private void cursorPosition() {
@@ -113,9 +153,9 @@ public class Gui extends PApplet {
 						inputSpace.setPoint(0, cursor);
 						
 						Complex cursorResult = cursor;
-						for (int i = 0; i < NUMITERATIONS; i++) {
+						for (int i = 1; i < NUMITERATIONS+1; i++) {
 								cursorResult = f.CalculateValueOfFunction(cursorResult);
-								outputSpace.setPoint(i, cursorResult);
+								inputSpace.setPoint(i, cursorResult);
 								
 						}
 				}
