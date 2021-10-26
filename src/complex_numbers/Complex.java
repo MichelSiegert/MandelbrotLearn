@@ -69,4 +69,6 @@ public class Complex {
   public Complex div(int degree) {
     return this.div(new Complex(degree,0));
   }
+  
+  public double dist(){return Math.sqrt(img*img+real*real);}
 }
