@@ -52,13 +52,13 @@ public class Grid {
 				return new PVector(xPos, yPos);
 		}
 		
-		public Complex calculateValue() {
+		public Complex mouseToComplex() {
 				double real = PApplet.constrain(PApplet.map(p.mouseX, x * p.width / 2, (x + 1) * p.width / 2, x1, x2),x1,x2);
 				double img = PApplet.constrain(PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, y1, y2),x1,x2);
 				return new Complex(real, img);
 		}
 		
-		public Complex calculateValue(PVector vec) {
+		public Complex mouseToComplex(PVector vec) {
 				double real = PApplet.constrain(PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, x1, x2),x1,x2);
 				double img = PApplet.constrain(PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, y1, y2),x1,x2);
 				return new Complex(real, img);
