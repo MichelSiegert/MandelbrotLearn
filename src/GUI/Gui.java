@@ -13,7 +13,7 @@ public class Gui extends PApplet {
 		private Grid outputSpace;
 		private Grid realSpace;
 		Function f = new Function();
-		public static final int NUMITERATIONS = 20;
+		public static final int NUMITERATIONS = 100;
 		
 		public Gui() {
 				
@@ -63,7 +63,7 @@ public class Gui extends PApplet {
 				Grid MandelBrotspace = new Grid(0, 1, p);
 				MandelBrotspace.setYValues(2);
 				MandelBrotspace.setXValues(2);
-				Complex c = MandelBrotspace.calculateValue(new PVector(i, j));
+				Complex c = MandelBrotspace.mouseToComplex(new PVector(i, j));
 				for (int k = 0; k < NUMITERATIONS; k++) {
 						c = f.CalculateValueOfFunction(c);
 						if (c.dist() > 10) return false;
@@ -77,10 +77,10 @@ public class Gui extends PApplet {
 				varSpace.setXValues(2);
 				
 				Complex start = new Complex(0, 0);
-				Complex c = varSpace.calculateValue(new PVector(i, j));
+				Complex c = varSpace.mouseToComplex(new PVector(i, j));
 				
 				Function fun = new Function();
-				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
+				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
 				fun.addFunctionPart(new FunctionPart(c, 0));
 				
 				for (int k = 0; k < NUMITERATIONS; k++) {
@@ -91,18 +91,20 @@ public class Gui extends PApplet {
 		}
 		
 		private Grid createOutputSpace() {
-				Complex c = new Complex(-1, 1);
+				Complex c = new Complex(0, 0);
 				Grid output = new Grid(1, 1, p);
 				output.setXValues(2);
 				output.setYValues(2);
 				
 				Complex cResult = c;
+				Function fun = new Function();
+				fun.addFunctionPart(new FunctionPart(new Complex (1,0),2));
+				fun.addFunctionPart(new FunctionPart(c,0));
 				
-				for (int i = 0; i < NUMITERATIONS; i++) {
-						cResult = f.CalculateValueOfFunction(cResult);
+				for (int i = 1; i < NUMITERATIONS+1; i++) {
+						cResult = fun.CalculateValueOfFunction(cResult);
 						output.addPoint(cResult);
 				}
-				
 				return output;
 		}
 		
@@ -125,7 +127,7 @@ public class Gui extends PApplet {
 				
 				Complex cResult = c;
 				
-				for (int i = 1; i < NUMITERATIONS+1; i++) {
+				for (int i = 1; i < NUMITERATIONS + 1; i++) {
 						cResult = f.CalculateValueOfFunction(cResult);
 						input.addPoint(cResult);
 				}
@@ -135,30 +137,45 @@ public class Gui extends PApplet {
 		private Function createFunction() {
 				Function function = new Function();
 				
-				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
-				function.addFunctionPart(new FunctionPart(new Complex(0.42, 0), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+				function.addFunctionPart(new FunctionPart(new Complex(-1, 0), 0));
 				
 				return function;
 		}
 		
 		public void draw() {
-				cursorPosition();
+				CheckForInput();
 				inputSpace.draw();
-				realSpace.draw();
+				outputSpace.draw();
 		}
 		
-		private void cursorPosition() {
+		private void CheckForInput() {
 				if (isInsideInput()) {
-						Complex cursor = inputSpace.calculateValue();
+						Complex cursor = inputSpace.mouseToComplex();
 						inputSpace.setPoint(0, cursor);
 						
 						Complex cursorResult = cursor;
-						for (int i = 1; i < NUMITERATIONS+1; i++) {
+						for (int i = 1; i < NUMITERATIONS + 1; i++) {
 								cursorResult = f.CalculateValueOfFunction(cursorResult);
 								inputSpace.setPoint(i, cursorResult);
-								
+						}
+				} else if (isInsideFunctionInput()) {
+						Complex c = new Complex(0, 0);
+						Complex cursor = outputSpace.mouseToComplex();
+						
+						Function f = new Function();
+						f.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+						f.addFunctionPart(new FunctionPart(cursor, 0));
+						
+						for (int i = 1; i < NUMITERATIONS ; i++) {
+								c = f.CalculateValueOfFunction(c);
+								outputSpace.setPoint(i, c);
 						}
 				}
+		}
+		
+		private boolean isInsideFunctionInput() {
+				return (p.mouseX > p.width / 2 && p.mouseY > p.height / 2);
 		}
 		
 		boolean isInsideInput() {
