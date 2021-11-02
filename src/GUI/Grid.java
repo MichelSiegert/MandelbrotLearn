@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Grid {
 		private PApplet p;
 		public int x, y;
-		private float x1, x2;
-		private float y1, y2;
-		ArrayList<Complex> points = new ArrayList<>();
+		private double x1, x2;
+		private double y1, y2;
+		private ArrayList<Complex> points = new ArrayList<>();
 		
 		Grid(int x, int y, PApplet p) {
 				this.x = x;
@@ -20,15 +20,26 @@ public class Grid {
 				this.p = p;
 		}
 		
-		public void setXValues(int x) {
+		public void setXValues(double x) {
 				this.x1 = -x;
 				this.x2 = x;
 		}
 		
-		public void setYValues(int y) {
+		public void setXValues(double lower, double upper) {
+				this.x1 = lower;
+				this.x2 = upper;
+		}
+		
+		public void setYValues(double y) {
 				this.y1 = -y;
 				this.y2 = y;
-}
+		}
+		
+		public void setYValues(double lower, double upper) {
+				this.y1 = lower;
+				this.y2 = upper;
+		}
+		
 		
 		public void addPoint(Complex p) {
 				if (false == points.contains(p))
@@ -48,20 +59,20 @@ public class Grid {
 		private PVector calculatePosition(Complex point) {
 				//value on a scale from -5 to 5, and I want to map it to width/2
 				// same for height.
-				float xPos = PApplet.constrain(PApplet.map((float) point.getReal(), x1, x2, x * p.width / 2, x * p.width / 2 + p.width / 2),x*p.width/2, (x+1)*p.width/2);
-				float yPos = PApplet.constrain(PApplet.map((float) point.getImg(), y1, y2, y * p.height / 2, y * p.height / 2 + p.height / 2),y*p.height/2, (y+1)*p.height/2);
+				float xPos = PApplet.constrain(PApplet.map((float) point.getReal(), (float) x1, (float) x2, x * p.width / 2, x * p.width / 2 + p.width / 2), x * p.width / 2, (x + 1) * p.width / 2);
+				float yPos = PApplet.constrain(PApplet.map((float) point.getImg(), (float) y1, (float) y2, y * p.height / 2, y * p.height / 2 + p.height / 2), y * p.height / 2, (y + 1) * p.height / 2);
 				return new PVector(xPos, yPos);
 		}
 		
 		public Complex mouseToComplex() {
-				double real = PApplet.constrain(PApplet.map(p.mouseX, x * p.width / 2, (x + 1) * p.width / 2, x1, x2),x1,x2);
-				double img = PApplet.constrain(PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, y1, y2),x1,x2);
+				double real = PApplet.constrain(PApplet.map(p.mouseX, x * p.width / 2, (x + 1) * p.width / 2, (float) x1, (float) x2), (float) x1, (float) x2);
+				double img = PApplet.constrain(PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, (float) y1, (float) y2), (float) x1, (float) x2);
 				return new Complex(real, img);
 		}
 		
 		public Complex mouseToComplex(PVector vec) {
-				double real = PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, x1, x2);
-				double img = PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, y1, y2);
+				double real = PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, (float) x1, (float) x2);
+				double img = PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, (float) y1, (float) y2);
 				return new Complex(real, img);
 		}
 		
@@ -82,8 +93,7 @@ public class Grid {
 				points.set(i, calculateValue);
 		}
 		
-		public void draw()
-		{
+		public void draw() {
 				drawGrid();
 				drawPoints();
 		}

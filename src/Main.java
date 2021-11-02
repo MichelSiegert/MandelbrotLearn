@@ -1,7 +1,4 @@
-import Function.Function;
-import Function.FunctionPart;
 import GUI.Gui;
-import complex_numbers.Complex;
 import processing.core.PApplet;
 
 

@@ -11,6 +11,8 @@ public class FunctionSpace {
 		FunctionSpace(int x, int y, PApplet p) {
 				this.p = p;
 				grid = new Grid(x, y, p);
+				grid.setXValues(2);
+				grid.setYValues(2);
 		}
 		
 		public void generateFunctionSpace() {
@@ -28,10 +30,8 @@ public class FunctionSpace {
 		}
 		
 		private boolean isInsideFunctionSet(int i, int j) {
-				Grid MandelBrotspace = new Grid(0, 1, p);
-				MandelBrotspace.setYValues(2);
-				MandelBrotspace.setXValues(2);
-				Complex c = MandelBrotspace.mouseToComplex(new PVector(i, j));
+
+				Complex c = grid.mouseToComplex(new PVector(i, j));
 				for (int k = 0; k < Gui.NUMITERATIONS; k++) {
 						c = Gui.f.CalculateValueOfFunction(c);
 						if (c.dist() > 10) return false;

@@ -8,13 +8,15 @@ import processing.core.PVector;
 
 
 public class Gui extends PApplet {
+		
 		private static PApplet p;
 		private Grid inputSpace;
 		private Grid outputSpace;
-		private VariableSpace varSpace;
-		private FunctionSpace funSpace;
 		public static Function f = new Function();
-		public static final int NUMITERATIONS = 100;
+		public static final int NUMITERATIONS = 1000;
+		
+		VariableSpace varSpace;
+		FunctionSpace funSpace;
 		
 		public Gui() {
 				
@@ -29,10 +31,10 @@ public class Gui extends PApplet {
 				outputSpace = createOutputSpace();
 				
 				varSpace = new VariableSpace(1, 0, p);
-				varSpace.generateVariableSpace();
-				
 				funSpace = new FunctionSpace(0, 1, p);
 				funSpace.generateFunctionSpace();
+				
+				
 		}
 		
 		private Grid createOutputSpace() {
@@ -82,6 +84,7 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
+				varSpace.generateVariableSpace(true	);
 		}
 		
 		private void CheckForInput() {
@@ -116,5 +119,4 @@ public class Gui extends PApplet {
 		boolean isInsideInput() {
 				return (p.mouseX < p.width / 2 && p.mouseY < p.height / 2);
 		}
-		
 }
