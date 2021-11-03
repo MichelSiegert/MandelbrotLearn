@@ -13,7 +13,7 @@ public class Gui extends PApplet {
 		private Grid inputSpace;
 		private Grid outputSpace;
 		public static Function f = new Function();
-		public static final int NUMITERATIONS = 1000;
+		public static final int NUMITERATIONS = 30;
 		
 		VariableSpace varSpace;
 		FunctionSpace funSpace;
@@ -84,7 +84,7 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
-				varSpace.generateVariableSpace(true	);
+				varSpace.generateVariableSpace(false);
 		}
 		
 		private void CheckForInput() {
@@ -116,7 +116,7 @@ public class Gui extends PApplet {
 				return (p.mouseX > p.width / 2 && p.mouseY > p.height / 2);
 		}
 		
-		boolean isInsideInput() {
+		private boolean isInsideInput() {
 				return (p.mouseX < p.width / 2 && p.mouseY < p.height / 2);
 		}
 }

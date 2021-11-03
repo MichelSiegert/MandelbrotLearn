@@ -1,13 +1,11 @@
 import GUI.Gui;
 import processing.core.PApplet;
 
-
 public class Main extends PApplet {
 		public static Gui gui;
 		
 		public static void main(String[] args) {
 				gui = new Gui();
-				
 				
 		}
 		

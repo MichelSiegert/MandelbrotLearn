@@ -10,10 +10,19 @@ public class Function {
 		public Function() {
 		}
 		
+		/**
+		 * adds a new Functionpart to the equation.
+		 * @param p the new Function part
+		 */
 		public void addFunctionPart(FunctionPart p) {
 				function.add(p);
 		}
 		
+		/**
+		 * Given an input for X: it calculates the result.
+		 * @param input the X value
+		 * @return a complex result
+		 */
 		public Complex CalculateValueOfFunction(Complex input) {
 				Complex result = new Complex(0, 0);
 				for (FunctionPart f : function) {
@@ -22,6 +31,9 @@ public class Function {
 				return result;
 		}
 		
+		/**
+		 * prints the values of the function.
+		 */
 		public void printFunction() {
 				for (FunctionPart f : function) {
 						System.out.print("(" + f.value.getReal() + "+i" + f.value.getImg() + ")x^" + f.degree + "+");
@@ -29,6 +41,10 @@ public class Function {
 				System.out.println();
 		}
 		
+		/**
+		 * calculates the derivative of a function
+		 * @return the derivative of the function.
+		 */
 		public Function getDerivative() {
 				Function f = this;
 				for (int i = 0; i < f.function.size(); i++) {
@@ -37,6 +53,9 @@ public class Function {
 				return f;
 		}
 		
+		/**
+		 * Calculating the integral of the function.
+		 */
 		public Function getIntegral() {
 				Function f = this;
 				for (int i = 0; i < f.function.size(); i++) {
@@ -45,4 +64,28 @@ public class Function {
 				return f;
 		}
 		
+		
+		/**
+		 * adds a function to another function.
+		 *
+		 * @param other the other function
+		 * @return the result of adding two functions
+		 */
+		public Function add(Function other) {
+				Function result = new Function();
+				for (FunctionPart f : function) {
+						for (int i = 0; i < other.function.size(); i++) {
+								if (f.hasSameExp(other.function.get(i))) {
+										try {
+												result.addFunctionPart(f.add(other.function.get(i)));
+												break;
+										} catch (Exception e) {
+												e.printStackTrace();
+										}
+								}
+								if (i == other.function.size() - 1) result.addFunctionPart(f);
+						}
+				}
+				return result;
+		}
 }

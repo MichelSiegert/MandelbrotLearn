@@ -17,11 +17,17 @@ public class VariableSpace {
 		VariableSpace(int x, int y, PApplet p) {
 				this.p = p;
 				grid = new Grid(x, y, p);
+				grid.setXValues(2);
+				grid.setYValues(2);
 		}
 		
+		/**
+		 * generates an image to see if the numbers converge. The function starts with f(0)= the function.
+		 *
+		 * @param zoom should the programm zoom in every frame?
+		 */
 		public void generateVariableSpace(boolean zoom) {
-				if (zoom)
-				{
+				if (zoom) {
 						range *= scaler;
 						grid.setYValues(goal.getImg() - range, goal.getImg() + range);
 						grid.setXValues(goal.getReal() - range, goal.getReal() + range);
@@ -41,6 +47,13 @@ public class VariableSpace {
 				}
 		}
 		
+		/**
+		 * checks if a point is inside the variable set.
+		 *
+		 * @param i x coordinate
+		 * @param j y coordinate
+		 * @return yes its inside the set. no its not.
+		 */
 		private boolean isInsideVariableSet(int i, int j) {
 				
 				Complex start = new Complex(0, 0);
