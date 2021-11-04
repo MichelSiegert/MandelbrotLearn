@@ -20,6 +20,11 @@ public class Grid {
 				this.p = p;
 		}
 		
+		/**
+		 * sets the scale of the screen to -x as the lower bound and x as the upper bound.
+		 *
+		 * @param x
+		 */
 		public void setXValues(double x) {
 				this.x1 = -x;
 				this.x2 = x;
@@ -30,6 +35,11 @@ public class Grid {
 				this.x2 = upper;
 		}
 		
+		/**
+		 * sets Y values
+		 *
+		 * @param y lower and upper boundary.
+		 */
 		public void setYValues(double y) {
 				this.y1 = -y;
 				this.y2 = y;
@@ -40,7 +50,11 @@ public class Grid {
 				this.y2 = upper;
 		}
 		
-		
+		/**
+		 * adds a point to arraylist
+		 *
+		 * @param the point that is to be added.
+		 */
 		public void addPoint(Complex p) {
 				if (false == points.contains(p))
 						points.add(p);
@@ -64,12 +78,23 @@ public class Grid {
 				return new PVector(xPos, yPos);
 		}
 		
+		/**
+		 * Calculates the value of a complex number in the plane based on the position of the mouse.
+		 *
+		 * @return The complex number.
+		 */
 		public Complex mouseToComplex() {
 				double real = PApplet.constrain(PApplet.map(p.mouseX, x * p.width / 2, (x + 1) * p.width / 2, (float) x1, (float) x2), (float) x1, (float) x2);
-				double img = PApplet.constrain(PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, (float) y1, (float) y2), (float) x1, (float) x2);
+				double img = PApplet.constrain(PApplet.map(p.mouseY, y * p.height / 2, (y + 1) * p.height / 2, (float) y1, (float) y2), (float) y1, (float) y2);
 				return new Complex(real, img);
 		}
 		
+		/**
+		 * Erstellt eine Komplexe Zahl aus einem PVector.
+		 *
+		 * @param vec X und Y Koordinate in einem PVector.
+		 * @return eine Komplexe zahl in dem Bereich angegeben.
+		 */
 		public Complex mouseToComplex(PVector vec) {
 				double real = PApplet.map(vec.x, x * p.width / 2, (x + 1) * p.width / 2, (float) x1, (float) x2);
 				double img = PApplet.map(vec.y, y * p.height / 2, (y + 1) * p.height / 2, (float) y1, (float) y2);
@@ -89,10 +114,19 @@ public class Grid {
 				p.popMatrix();
 		}
 		
+		/**
+		 * sets a value in the arraylist
+		 *
+		 * @param i              The position inside the ArrayList
+		 * @param calculateValue The value that is supposed to be set at position i
+		 */
 		public void setPoint(int i, Complex calculateValue) {
 				points.set(i, calculateValue);
 		}
 		
+		/**
+		 * does the graphical interface.
+		 */
 		public void draw() {
 				drawGrid();
 				drawPoints();
