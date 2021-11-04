@@ -1,5 +1,7 @@
-package GUI;
+package GUI.Space;
 
+import GUI.Grid;
+import GUI.Gui;
 import complex_numbers.Complex;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -9,7 +11,7 @@ public class FunctionSpace {
 		Grid grid;
 		private int iteration;
 		
-		FunctionSpace(int x, int y, PApplet p) {
+		public FunctionSpace(int x, int y, PApplet p) {
 				this.p = p;
 				grid = new Grid(x, y, p);
 				grid.setXValues(2);

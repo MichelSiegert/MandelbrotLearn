@@ -14,7 +14,7 @@ public class Grid {
 		private double y1, y2;
 		private ArrayList<Complex> points = new ArrayList<>();
 		
-		Grid(int x, int y, PApplet p) {
+		public Grid(int x, int y, PApplet p) {
 				this.x = x;
 				this.y = y;
 				this.p = p;

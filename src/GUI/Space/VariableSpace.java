@@ -1,7 +1,9 @@
-package GUI;
+package GUI.Space;
 
 import Function.Function;
 import Function.FunctionPart;
+import GUI.Grid;
+import GUI.Gui;
 import complex_numbers.Complex;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -14,7 +16,7 @@ public class VariableSpace {
 		double range = 2;
 		Complex goal = new Complex(-0.75, -0.1);
 		
-		VariableSpace(int x, int y, PApplet p) {
+		public VariableSpace(int x, int y, PApplet p) {
 				this.p = p;
 				grid = new Grid(x, y, p);
 				grid.setXValues(2);

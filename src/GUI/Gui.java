@@ -2,9 +2,10 @@ package GUI;
 
 import Function.Function;
 import Function.FunctionPart;
+import GUI.Space.FunctionSpace;
+import GUI.Space.VariableSpace;
 import complex_numbers.Complex;
 import processing.core.PApplet;
-import processing.core.PVector;
 
 
 public class Gui extends PApplet {
