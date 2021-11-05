@@ -41,7 +41,6 @@ public class Complex {
 		
 		// Multiplication
 		//(a+ ib ) * (c + id)=  ac - bd + i(ad+bc)
-		
 		/**
 		 * multiplication of 2 complex Numbers.
 		 *
@@ -58,7 +57,6 @@ public class Complex {
 		// (a+ib) / (c +id) =
 		//((a+ib)*(c-id))/(c²- d²)
 		//(ac+bd)/(c²-d²) + i(-ad + bc)/(c²-d²)
-		
 		/**
 		 * division
 		 *
@@ -93,7 +91,6 @@ public class Complex {
 		public void complexString() {
 				System.out.println("real: " + real + ", imaginary: " + img);
 		}
-		
 		
 		public double getReal() {
 				return real;
@@ -130,5 +127,20 @@ public class Complex {
 		 */
 		public double dist() {
 				return Math.sqrt(img * img + real * real);
+		}
+		
+		/**
+		 * Slower but more versatile method to calculate Powers of something. Does floats, roots, negative.
+		 * @param exponent the exponent of the complex number
+		 * @return the result of this to the power of the exponent.
+		 */
+		public Complex pow(double exponent) {
+				double angle = Math.atan2(img, real);
+				double r = this.dist();
+				double rRooted = Math.pow(r, exponent);
+				angle *= exponent;
+				double real = rRooted * Math.cos(angle);
+				double img = rRooted * Math.sin(angle);
+				return new Complex(real, img);
 		}
 }
