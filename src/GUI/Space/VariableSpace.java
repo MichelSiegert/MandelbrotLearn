@@ -18,9 +18,10 @@ public class VariableSpace {
 		
 		public VariableSpace(int x, int y, PApplet p) {
 				this.p = p;
-				grid = new Grid(x, y, p);
+				grid = new 	Grid(x, y, p);
 				grid.setXValues(2);
 				grid.setYValues(2);
+				
 		}
 		
 		/**
@@ -62,7 +63,10 @@ public class VariableSpace {
 				Complex c = grid.mouseToComplex(new PVector(i, j));
 				
 				Function fun = new Function();
-				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+				fun.addFunctionPart(new FunctionPart(new Complex(0,1), 2));
+				fun.addFunctionPart(new FunctionPart(new Complex(1,0), 1));
+				fun.addFunctionPart(new FunctionPart(new Complex(-1,0), 3));
+				fun.addFunctionPart(new FunctionPart(new Complex(0,-1), 4));
 				fun.addFunctionPart(new FunctionPart(c, 0));
 				
 				for (int k = 0; k < Gui.NUMITERATIONS; k++) {

@@ -46,7 +46,7 @@ public class Gui extends PApplet {
 				
 				Complex cResult = c;
 				Function fun = new Function();
-				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+				fun.addFunctionPart(new FunctionPart(new Complex(1, 0), 1.6));
 				fun.addFunctionPart(new FunctionPart(c, 0));
 				
 				for (int i = 1; i < NUMITERATIONS + 1; i++) {
@@ -75,8 +75,9 @@ public class Gui extends PApplet {
 		private Function createFunction() {
 				Function function = new Function();
 				
-				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-				function.addFunctionPart(new FunctionPart(new Complex(-1, 0), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
+				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 1));
+				function.addFunctionPart(new FunctionPart(new Complex(0.34, -0.15), 0));
 				
 				return function;
 		}
@@ -101,15 +102,14 @@ public class Gui extends PApplet {
 				} else if (isInsideFunctionInput()) {
 						Complex c = new Complex(0, 0);
 						Complex cursor = outputSpace.mouseToComplex();
-						
-						Function f = new Function();
-						f.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-						f.addFunctionPart(new FunctionPart(cursor, 0));
+						Function oldf = f;
+						f.setFunctionpart(f.size()-1, new FunctionPart(cursor,0));
 						
 						for (int i = 1; i < NUMITERATIONS; i++) {
 								c = f.CalculateValueOfFunction(c);
 								outputSpace.setPoint(i, c);
 						}
+						f = oldf;
 				}
 		}
 		

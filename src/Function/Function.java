@@ -88,4 +88,12 @@ public class Function {
 				}
 				return result;
 		}
+		
+		public int size() {
+				return function.size();
+		}
+		
+		public void setFunctionpart(int i, FunctionPart functionPart) {
+				function.set(i,functionPart);
+		}
 }

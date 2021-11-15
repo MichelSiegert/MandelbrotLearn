@@ -3,7 +3,7 @@ package Function;
 import complex_numbers.Complex;
 
 public class FunctionPart {
-		int degree;
+		double degree;
 		Complex value;
 		
 		public FunctionPart(Complex value, int degree) {
@@ -11,8 +11,14 @@ public class FunctionPart {
 				this.value = value;
 		}
 		
+		public FunctionPart(Complex value, double degree) {
+				this.degree = degree;
+				this.value = value;
+		}
+		
 		/**
 		 * calculates derivative.
+		 *
 		 * @return the derivative.
 		 */
 		public FunctionPart calculateDerivative() {
@@ -34,7 +40,11 @@ public class FunctionPart {
 		 * @return the result
 		 */
 		public Complex CalculateValue(Complex input) {
-				return input.pow(degree).mul(value);
+				if (((int) (degree)) == degree) {
+						return input.pow((int) (degree)).mul(value);
+				} else {
+						return input.pow(degree).mul(value);
+				}
 		}
 		
 		/**
@@ -54,13 +64,8 @@ public class FunctionPart {
 		 * @return the result of the division.
 		 * @throws Exception currently exponents can only be integers, so the result has to be an int or will throw an exception.
 		 */
-		public FunctionPart div(FunctionPart other) throws Exception {
-				if (this.degree % other.degree == 0 &&
-								this.degree >= other.degree) {
-						return new FunctionPart(this.value.div(other.value), this.degree / other.degree);
-						
-				}
-				throw new Exception("this programm does not support rational number exponents!");
+		public FunctionPart div(FunctionPart other) {
+				return new FunctionPart(this.value.div(other.value), this.degree / other.degree);
 		}
 		
 		/**

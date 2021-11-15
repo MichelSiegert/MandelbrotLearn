@@ -53,10 +53,22 @@ public class Complex {
 				return new Complex(r, i);
 		}
 		
+		/**
+		 * multiplying by a real number.
+		 *
+		 * @param multiplier the real number.
+		 * @return the complex number.
+		 */
+		public Complex mul(double multiplier) {
+				return this.mul(new Complex(multiplier, 0));
+		}
+		
+		
 		//division
 		// (a+ib) / (c +id) =
 		//((a+ib)*(c-id))/(c²- d²)
 		//(ac+bd)/(c²-d²) + i(-ad + bc)/(c²-d²)
+		
 		/**
 		 * division
 		 *
@@ -68,6 +80,17 @@ public class Complex {
 				double i = img * other.real - real * other.img;
 				return new Complex(r, i);
 		}
+		
+		/**
+		 * Dividing by a real number.
+		 *
+		 * @param div the real number.
+		 * @return the result of the division.
+		 */
+		public Complex div(double div) {
+				return this.div(new Complex(div, 0));
+		}
+		
 		
 		/**
 		 * calculates a number to the (natural number only) power of something.
@@ -86,50 +109,6 @@ public class Complex {
 		}
 		
 		/**
-		 * prints the complex number.
-		 */
-		public void complexString() {
-				System.out.println("real: " + real + ", imaginary: " + img);
-		}
-		
-		public double getReal() {
-				return real;
-		}
-		
-		public double getImg() {
-				return img;
-		}
-		
-		/**
-		 * multiplying by a real number.
-		 *
-		 * @param multiplier the real number.
-		 * @return the complex number.
-		 */
-		public Complex mul(int multiplier) {
-				return this.mul(new Complex(multiplier, 0));
-		}
-		
-		/**
-		 * Dividing by a real number.
-		 *
-		 * @param div the real number.
-		 * @return the result of the division.
-		 */
-		public Complex div(int div) {
-				return this.div(new Complex(div, 0));
-		}
-		
-		/**
-		 * calculates the distance from the point (0,0)
-		 *
-		 * @return the distance from the origin.
-		 */
-		public double dist() {
-				return Math.sqrt(img * img + real * real);
-		}
-		
-		/**
 		 * Slower but more versatile method to calculate Powers of something. Does floats, roots, negative.
 		 * @param exponent the exponent of the complex number
 		 * @return the result of this to the power of the exponent.
@@ -143,4 +122,29 @@ public class Complex {
 				double img = rRooted * Math.sin(angle);
 				return new Complex(real, img);
 		}
+		
+		public double getReal() {
+				return real;
+		}
+		
+		public double getImg() {
+				return img;
+		}
+		
+		/**
+		 * calculates the distance from the point (0,0)
+		 *
+		 * @return the distance from the origin.
+		 */
+		public double dist() {
+				return Math.sqrt(img * img + real * real);
+		}
+		
+		/**
+		 * prints the complex number.
+		 */
+		public void complexString() {
+				System.out.println("real: " + real + ", imaginary: " + img);
+		}
+		
 }
