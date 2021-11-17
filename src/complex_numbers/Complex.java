@@ -28,6 +28,16 @@ public class Complex {
 		}
 		
 		/**
+		 * add a number to a complex number that is a rational number.
+		 *
+		 * @param other the rational number
+		 * @return the complex number.
+		 */
+		public Complex add(double other) {
+				return new Complex(real + other, img);
+		}
+		
+		/**
 		 * Subtraction of 2 Complex numbers.
 		 *
 		 * @param other the other complex number.
@@ -39,8 +49,19 @@ public class Complex {
 				return new Complex(r, i);
 		}
 		
+		/**
+		 * subtract a number from a rational number
+		 *
+		 * @param other the rational number
+		 * @return the result of the subtraction.
+		 */
+		public Complex sub(double other) {
+				return add(-other);
+		}
+		
 		// Multiplication
 		//(a+ ib ) * (c + id)=  ac - bd + i(ad+bc)
+		
 		/**
 		 * multiplication of 2 complex Numbers.
 		 *
@@ -91,18 +112,17 @@ public class Complex {
 				return this.div(new Complex(div, 0));
 		}
 		
-		
 		/**
 		 * calculates a number to the (natural number only) power of something.
 		 *
-		 * @param num the exponent
+		 * @param exponent the exponent
 		 * @return the result.
 		 */
-		public Complex pow(int num) {
-				num = Math.abs(num);
-				if (num == 0) return new Complex(1, 0);
+		public Complex pow(int exponent) {
+				exponent = Math.abs(exponent);
+				if (exponent == 0) return new Complex(1, 0);
 				Complex res = this;
-				for (int i = 0; i < num - 1; i++) {
+				for (int i = 0; i < exponent - 1; i++) {
 						res = res.mul(this);
 				}
 				return res;
