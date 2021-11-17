@@ -1,5 +1,7 @@
 package GUI.Space;
 
+import Function.Function;
+import Function.FunctionPart;
 import GUI.Grid;
 import GUI.Gui;
 import complex_numbers.Complex;
@@ -20,9 +22,12 @@ public class FunctionSpace {
 		
 		/**
 		 * Generates the function space where f(x) = your function.
+		 * @param outputFactor
 		 */
-		public void generateFunctionSpace() {
+		public void generateFunctionSpace(Complex outputFactor) {
 				int col;
+				Function oldf = Gui.f;
+				Gui.f.setFunctionpart(Gui.f.size()-1,new FunctionPart(outputFactor,0));
 				for (int i = grid.x * p.width / 2; i < (grid.x + 1) * p.width / 2; i++) {
 						for (int j = grid.y * p.height / 2; j < (grid.y + 1) * p.height / 2; j++) {
 								if (isInsideFunctionSet(i, j)) {
@@ -33,6 +38,7 @@ public class FunctionSpace {
 								p.set(i, j, col);
 						}
 				}
+				Gui.f = oldf;
 		}
 		
 		/**

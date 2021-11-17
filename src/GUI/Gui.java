@@ -19,8 +19,9 @@ public class Gui extends PApplet {
 		private static PApplet p;
 		private Grid inputSpace;
 		private Grid outputSpace;
+		Complex outputFactor = new Complex(0,0);
 		public static Function f = new Function();
-		public static final int NUMITERATIONS = 30;
+		public static final int NUMITERATIONS = 100;
 		
 		VariableSpace varSpace;
 		FunctionSpace funSpace;
@@ -40,7 +41,7 @@ public class Gui extends PApplet {
 				
 				varSpace = new VariableSpace(1, 0, p);
 				funSpace = new FunctionSpace(0, 1, p);
-				funSpace.generateFunctionSpace();
+				funSpace.generateFunctionSpace(outputFactor);
 				varSpace.generateVariableSpace(false);
 		}
 		
@@ -81,9 +82,8 @@ public class Gui extends PApplet {
 		private Function createFunction() {
 				Function function = new Function();
 				
-				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 3));
-				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 1));
-				function.addFunctionPart(new FunctionPart(new Complex(0.34, -0.15), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
+				function.addFunctionPart(new FunctionPart(new Complex(-1,0), 0));
 				
 				return function;
 		}
@@ -92,6 +92,7 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
+				funSpace.generateFunctionSpace(outputFactor);
 		}
 		
 		private void CheckForInput() {
@@ -116,6 +117,7 @@ public class Gui extends PApplet {
 						
 						for (int i = 1; i < NUMITERATIONS; i++) {
 								c = f.CalculateValueOfFunction(c);
+								if(p.mousePressed){outputFactor = cursor;}
 								if (outputSpace.isOutsideGrid(c)) {
 										break;
 								}
