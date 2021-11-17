@@ -132,16 +132,24 @@ public class Grid {
 				drawPoints();
 		}
 		
+		/**
+		 * set the arraylist back to the complex number 0+0i.
+		 */
 		public void reset() {
-				Complex zero = new Complex(0,0);
-				for (int i=0; i<Gui.NUMITERATIONS;i++)
-				{
-						setPoint(i,zero);
+				Complex zero = new Complex(0, 0);
+				for (int i = 0; i < Gui.NUMITERATIONS; i++) {
+						setPoint(i, zero);
 				}
 		}
 		
+		/**
+		 * Check whether or not a number is visible on the grid
+		 *
+		 * @param c the point to check.
+		 * @return true when the point is outside the grid
+		 */
 		public boolean isOutsideGrid(Complex c) {
-				return c.getReal()< x1 || c.getReal() > x2 ||
+				return c.getReal() < x1 || c.getReal() > x2 ||
 								c.getImg() < y1 || c.getImg() > y2;
 		}
 }
