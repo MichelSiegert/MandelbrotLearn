@@ -7,6 +7,10 @@ import GUI.Space.VariableSpace;
 import complex_numbers.Complex;
 import processing.core.PApplet;
 
+// TODO f'^1(x) > f'^2(x) wenn lim( q -> unendlich) (f'^q(x)) = 0 ist.
+// nth root of complex number...  Eulers alg => x^n-res=0, to find solutions? does this work for stupid cases?
+// what if n = 2.5? x^1/2.5 = 1/(9/4) = reucsion?  so x^(9/4) -result =0? that sounds fucking slow!
+// what if n = 2.5+2i?
 /**
  * creates the GUI. requires the last parameter to x^0 to work properly.
  */
@@ -20,6 +24,7 @@ public class Gui extends PApplet {
 		
 		VariableSpace varSpace;
 		FunctionSpace funSpace;
+		
 		
 		public Gui() {
 				
