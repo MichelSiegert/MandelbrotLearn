@@ -131,4 +131,17 @@ public class Grid {
 				drawGrid();
 				drawPoints();
 		}
+		
+		public void reset() {
+				Complex zero = new Complex(0,0);
+				for (int i=0; i<Gui.NUMITERATIONS;i++)
+				{
+						setPoint(i,zero);
+				}
+		}
+		
+		public boolean isOutsideGrid(Complex c) {
+				return c.getReal()< x1 || c.getReal() > x2 ||
+								c.getImg() < y1 || c.getImg() > y2;
+		}
 }

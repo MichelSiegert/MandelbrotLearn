@@ -92,21 +92,28 @@ public class Gui extends PApplet {
 		private void CheckForInput() {
 				if (isInsideInput()) {
 						Complex cursor = inputSpace.mouseToComplex();
+						inputSpace.reset();
 						inputSpace.setPoint(0, cursor);
-						
 						Complex cursorResult = cursor;
 						for (int i = 1; i < NUMITERATIONS + 1; i++) {
 								cursorResult = f.CalculateValueOfFunction(cursorResult);
+								if (inputSpace.isOutsideGrid(cursorResult)) {
+										break;
+								}
 								inputSpace.setPoint(i, cursorResult);
 						}
 				} else if (isInsideFunctionInput()) {
 						Complex c = new Complex(0, 0);
+						outputSpace.reset();
 						Complex cursor = outputSpace.mouseToComplex();
 						Function oldf = f;
-						f.setFunctionpart(f.size()-1, new FunctionPart(cursor,0));
+						f.setFunctionpart(f.size() - 1, new FunctionPart(cursor, 0));
 						
 						for (int i = 1; i < NUMITERATIONS; i++) {
 								c = f.CalculateValueOfFunction(c);
+								if (outputSpace.isOutsideGrid(c)) {
+										break;
+								}
 								outputSpace.setPoint(i, c);
 						}
 						f = oldf;
