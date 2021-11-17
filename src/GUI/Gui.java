@@ -7,7 +7,9 @@ import GUI.Space.VariableSpace;
 import complex_numbers.Complex;
 import processing.core.PApplet;
 
-
+/**
+ * creates the GUI. requires the last parameter to x^0 to work properly.
+ */
 public class Gui extends PApplet {
 		
 		private static PApplet p;
@@ -34,8 +36,7 @@ public class Gui extends PApplet {
 				varSpace = new VariableSpace(1, 0, p);
 				funSpace = new FunctionSpace(0, 1, p);
 				funSpace.generateFunctionSpace();
-				
-				
+				varSpace.generateVariableSpace(false);
 		}
 		
 		private Grid createOutputSpace() {
@@ -86,7 +87,6 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
-				varSpace.generateVariableSpace(false);
 		}
 		
 		private void CheckForInput() {
