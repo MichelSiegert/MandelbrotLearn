@@ -152,4 +152,5 @@ public class Grid {
 				return c.getReal() < x1 || c.getReal() > x2 ||
 								c.getImg() < y1 || c.getImg() > y2;
 		}
+		
 }

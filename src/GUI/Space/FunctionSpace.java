@@ -22,7 +22,7 @@ public class FunctionSpace {
 		
 		/**
 		 * Generates the function space where f(x) = your function.
-		 * @param outputFactor
+		 * @param outputFactor TODO what does this do?
 		 */
 		public void generateFunctionSpace(Complex outputFactor) {
 				int col;
@@ -60,4 +60,11 @@ public class FunctionSpace {
 		}
 		
 		
+		public int getY() {
+				return grid.y;
+		}
+		
+		public int getX() {
+				return grid.x;
+		}
 }

@@ -73,4 +73,12 @@ public class VariableSpace {
 				}
 				return true;
 		}
+		
+		public int getX() {
+				return grid.x;
+		}
+		
+		public int getY() {
+				return grid.y;
+		}
 }
