@@ -19,9 +19,10 @@ public class Function {
 		}
 		
 		/**
-		 * Given an input for X: it calculates the result.
-		 * @param input the X value
-		 * @return a complex result
+		 * Given an input for x: it calculates the result of the function.
+		 *
+		 * @param input the x-value
+		 * @return The result of the function as a complex number
 		 */
 		public Complex CalculateValueOfFunction(Complex input) {
 				Complex result = new Complex(0, 0);
