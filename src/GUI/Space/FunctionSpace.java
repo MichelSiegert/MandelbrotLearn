@@ -26,7 +26,6 @@ public class FunctionSpace {
 		 */
 		public void generateFunctionSpace(Complex outputFactor) {
 				int col;
-				Function oldf = Gui.f;
 				Gui.f.setFunctionpart(Gui.f.size()-1,new FunctionPart(outputFactor,0));
 				for (int i = grid.x * p.width / 2; i < (grid.x + 1) * p.width / 2; i++) {
 						for (int j = grid.y * p.height / 2; j < (grid.y + 1) * p.height / 2; j++) {
@@ -38,7 +37,6 @@ public class FunctionSpace {
 								p.set(i, j, col);
 						}
 				}
-				Gui.f = oldf;
 		}
 		
 		/**

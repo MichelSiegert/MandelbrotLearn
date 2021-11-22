@@ -16,7 +16,6 @@ import processing.core.PImage;
 public class Gui extends PApplet {
 		
 		private static PApplet p;
-		boolean firstFrame = true;
 		private Grid inputSpace;
 		private Grid outputSpace;
 		Complex outputFactor = new Complex(0, 0);
@@ -92,16 +91,20 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
-				if (p.mousePressed && isInsideFunctionInput() || firstFrame) {
-						firstFrame = false;
+				if (p.mousePressed && isInsideFunctionInput() || p.frameCount==1) {
+						outputFactor = outputSpace.mouseToComplex();
 						funSpace.generateFunctionSpace(outputFactor);
 						varImage = p.get(funSpace.getX() * p.width >> 1, funSpace.getY() * p.height >> 1, (p.width >> 1) - 1, (p.height >> 1) - 1);
-						
 				} else {
 						p.image(varImage, funSpace.getX() * p.width >> 1, funSpace.getY() * p.height >> 1);
+
 				}
 		}
 		
+		/**
+		 * Input should be detected when the cursor is in the top left or the bottom right quadrant of the screen.
+		 * This method handles the inputs on the different sections.
+		 */
 		private void CheckForInput() {
 				if (isInsideInput()) {
 						handleInputSpace();
@@ -110,8 +113,11 @@ public class Gui extends PApplet {
 				}
 		}
 		
+		/**
+		 * This functions handles the input inside the function space.
+		 * it sets it up, and calculates everything required.
+		 */
 		private void handleFunctionSpace() {
-				
 				Function oldf = f;
 				setupFunction();
 				executeFunctionSpace();
@@ -119,6 +125,9 @@ public class Gui extends PApplet {
 				
 		}
 		
+		/**
+		 * Calculates the values inside the function space. starts off with {0,0} and then applies the function NUMITERATION times.
+		 */
 		private void executeFunctionSpace() {
 				Complex c = new Complex(0, 0);
 				for (int i = 1; i < NUMITERATIONS; i++) {
@@ -134,16 +143,12 @@ public class Gui extends PApplet {
 		private void setupFunction() {
 				outputSpace.reset();
 				Complex cursor = outputSpace.mouseToComplex();
-				f.setFunctionpart(f.size() - 1, new FunctionPart(cursor, 0));
-				if (p.mousePressed) {
-						outputFactor = cursor;
-				}
 		}
 		
 		private void handleInputSpace() {
 				Complex cursor = setupInput();
-				executeInputSpace(cursor);
 				
+				executeInputSpace(cursor);
 		}
 		
 		private void executeInputSpace(Complex cursor) {
@@ -164,10 +169,10 @@ public class Gui extends PApplet {
 		}
 		
 		private boolean isInsideFunctionInput() {
-				return (p.mouseX > p.width / 2 && p.mouseY > p.height / 2);
+				return (p.mouseX > p.width >> 1 && p.mouseY > p.height >> 1);
 		}
 		
 		private boolean isInsideInput() {
-				return (p.mouseX < p.width / 2 && p.mouseY < p.height / 2);
+				return (p.mouseX < p.width >> 1 && p.mouseY < p.height >> 1);
 		}
 }
