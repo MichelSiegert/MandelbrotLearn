@@ -8,10 +8,7 @@ import complex_numbers.Complex;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-// TODO f'^1(x) > f'^2(x) wenn lim( q -> unendlich) (f'^q(x)) = 0 ist.
-// nth root of complex number...  Eulers alg => x^n-res=0, to find solutions? does this work for stupid cases?
-// what if n = 2.5? x^1/2.5 = 1/(9/4) = reucsion?  so x^(9/4) -result =0? that sounds fucking slow!
-// what if n = 2.5+2i?
+// TODO f'^1(x) > f'^2(x) if lim( q -> inifity) (f'^q(x)) = 0.
 
 /**
  * creates the GUI. requires the last parameter to x^0 to work properly.
@@ -95,7 +92,7 @@ public class Gui extends PApplet {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
-				if (p.mousePressed || firstFrame) {
+				if (p.mousePressed && isInsideFunctionInput() || firstFrame) {
 						firstFrame = false;
 						funSpace.generateFunctionSpace(outputFactor);
 						varImage = p.get(funSpace.getX() * p.width >> 1, funSpace.getY() * p.height >> 1, (p.width >> 1) - 1, (p.height >> 1) - 1);
@@ -107,34 +104,63 @@ public class Gui extends PApplet {
 		
 		private void CheckForInput() {
 				if (isInsideInput()) {
-						Complex cursor = inputSpace.mouseToComplex();
-						inputSpace.reset();
-						inputSpace.setPoint(0, cursor);
-						Complex cursorResult = cursor;
-						for (int i = 1; i < NUMITERATIONS + 1; i++) {
-								cursorResult = f.CalculateValueOfFunction(cursorResult);
-								if (inputSpace.isOutsideGrid(cursorResult)) {
-										break;
-								}
-								inputSpace.setPoint(i, cursorResult);
-						}
+						handleInputSpace();
 				} else if (isInsideFunctionInput()) {
-						Complex c = new Complex(0, 0);
-						outputSpace.reset();
-						Complex cursor = outputSpace.mouseToComplex();
-						Function oldf = f;
-						f.setFunctionpart(f.size() - 1, new FunctionPart(cursor, 0));
-						
-						for (int i = 1; i < NUMITERATIONS; i++) {
-								c = f.CalculateValueOfFunction(c);
-								if(p.mousePressed){outputFactor = cursor;}
-								if (outputSpace.isOutsideGrid(c)) {
-										break;
-								}
-								outputSpace.setPoint(i, c);
-						}
-						f = oldf;
+						handleFunctionSpace();
 				}
+		}
+		
+		private void handleFunctionSpace() {
+				
+				Function oldf = f;
+				setupFunction();
+				executeFunctionSpace();
+				f = oldf;
+				
+		}
+		
+		private void executeFunctionSpace() {
+				Complex c = new Complex(0, 0);
+				for (int i = 1; i < NUMITERATIONS; i++) {
+						c = f.CalculateValueOfFunction(c);
+						
+						if (outputSpace.isOutsideGrid(c)) {
+								break;
+						}
+						outputSpace.setPoint(i, c);
+				}
+		}
+		
+		private void setupFunction() {
+				outputSpace.reset();
+				Complex cursor = outputSpace.mouseToComplex();
+				f.setFunctionpart(f.size() - 1, new FunctionPart(cursor, 0));
+				if (p.mousePressed) {
+						outputFactor = cursor;
+				}
+		}
+		
+		private void handleInputSpace() {
+				Complex cursor = setupInput();
+				executeInputSpace(cursor);
+				
+		}
+		
+		private void executeInputSpace(Complex cursor) {
+				for (int i = 1; i < NUMITERATIONS + 1; i++) {
+						cursor = f.CalculateValueOfFunction(cursor);
+						if (inputSpace.isOutsideGrid(cursor)) {
+								break;
+						}
+						inputSpace.setPoint(i, cursor);
+				}
+		}
+		
+		private Complex setupInput() {
+				Complex cursor = inputSpace.mouseToComplex();
+				inputSpace.reset();
+				inputSpace.setPoint(0, cursor);
+				return cursor;
 		}
 		
 		private boolean isInsideFunctionInput() {
