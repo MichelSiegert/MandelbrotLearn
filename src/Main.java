@@ -7,8 +7,6 @@ public class Main extends PApplet {
 		
 		public static void main(String[] args) {
 				gui = new Gui();
-				Complex c = new Complex(Math.E,0);
-				c.pow(PI).complexString();
 		}
 		
 		public void settings() {
