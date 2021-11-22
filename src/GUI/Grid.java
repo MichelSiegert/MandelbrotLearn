@@ -118,10 +118,10 @@ public class Grid {
 		 * sets a value in the arraylist
 		 *
 		 * @param i              The position inside the ArrayList
-		 * @param calculateValue The value that is supposed to be set at position i
+		 * @param complexValue The value that is supposed to be set at position i
 		 */
-		public void setPoint(int i, Complex calculateValue) {
-				points.set(i, calculateValue);
+		public void setPoint(int i, Complex complexValue) {
+				points.set(i, complexValue);
 		}
 		
 		/**
