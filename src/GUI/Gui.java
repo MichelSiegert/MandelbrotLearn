@@ -26,12 +26,19 @@ public class Gui extends PApplet {
 		VariableSpace varSpace;
 		FunctionSpace funSpace;
 		
-		
+		/**
+		 * constructor.
+		 */
 		public Gui() {
 				
 				PApplet.main("Main", null);
 		}
 		
+		/**
+		 * Processing setup. behaves like a constructor.
+		 *
+		 * @param p the PApplet.
+		 */
 		public void setup(PApplet p) {
 				Gui.p = p;
 				f = createFunction();
@@ -44,6 +51,11 @@ public class Gui extends PApplet {
 				varSpace.generateVariableSpace(false);
 		}
 		
+		/**
+		 * Builds an OutputSpace
+		 *
+		 * @return the outputSpace
+		 */
 		private Grid createOutputSpace() {
 				Complex c = new Complex(0, 0);
 				Grid output = new Grid(1, 1, p);
@@ -62,6 +74,11 @@ public class Gui extends PApplet {
 				return output;
 		}
 		
+		/**
+		 * Builds an inputGrid.
+		 *
+		 * @return the InputGrid
+		 */
 		private Grid createInput() {
 				Grid input = new Grid(0, 0, p);
 				input.setXValues(2);
@@ -78,26 +95,34 @@ public class Gui extends PApplet {
 				return input;
 		}
 		
+		/**
+		 * builds the function.
+		 *
+		 * @return the function that is desired
+		 */
 		private Function createFunction() {
 				Function function = new Function();
 				
 				function.addFunctionPart(new FunctionPart(new Complex(1, 0), 2));
-				function.addFunctionPart(new FunctionPart(new Complex(-1,0), 0));
+				function.addFunctionPart(new FunctionPart(new Complex(-1, 0), 0));
 				
 				return function;
 		}
 		
+		/**
+		 * the processing method draw, it's an infinite loop.
+		 */
 		public void draw() {
 				CheckForInput();
 				inputSpace.draw();
 				outputSpace.draw();
-				if (p.mousePressed && isInsideFunctionInput() || p.frameCount==1) {
+				if (p.mousePressed && isInsideFunctionInput() || p.frameCount == 1) {
 						outputFactor = outputSpace.mouseToComplex();
 						funSpace.generateFunctionSpace(outputFactor);
 						varImage = p.get(funSpace.getX() * p.width >> 1, funSpace.getY() * p.height >> 1, (p.width >> 1) - 1, (p.height >> 1) - 1);
 				} else {
 						p.image(varImage, funSpace.getX() * p.width >> 1, funSpace.getY() * p.height >> 1);
-
+						
 				}
 		}
 		
@@ -140,17 +165,26 @@ public class Gui extends PApplet {
 				}
 		}
 		
+		/**
+		 * sets up functionspace.
+		 */
 		private void setupFunction() {
 				outputSpace.reset();
-				Complex cursor = outputSpace.mouseToComplex();
 		}
 		
+		/**
+		 * Does everything required for the inputspace.
+		 */
 		private void handleInputSpace() {
 				Complex cursor = setupInput();
-				
 				executeInputSpace(cursor);
 		}
 		
+		/**
+		 * Runs the loop for the inputspace.
+		 *
+		 * @param cursor The start value as a complex number.
+		 */
 		private void executeInputSpace(Complex cursor) {
 				for (int i = 1; i < NUMITERATIONS + 1; i++) {
 						cursor = f.CalculateValueOfFunction(cursor);
@@ -161,6 +195,11 @@ public class Gui extends PApplet {
 				}
 		}
 		
+		/**
+		 * sets up the inputspace.
+		 *
+		 * @return the start value as a complex number
+		 */
 		private Complex setupInput() {
 				Complex cursor = inputSpace.mouseToComplex();
 				inputSpace.reset();
@@ -168,10 +207,20 @@ public class Gui extends PApplet {
 				return cursor;
 		}
 		
+		/**
+		 * checks if the user is hovering over the functionGrid
+		 *
+		 * @return true if the user hovers over the functionGrid
+		 */
 		private boolean isInsideFunctionInput() {
 				return (p.mouseX > p.width >> 1 && p.mouseY > p.height >> 1);
 		}
 		
+		/**
+		 * checks if the user is hovering over the inputGrid
+		 *
+		 * @return true if the useris hovering over the inputGrid
+		 */
 		private boolean isInsideInput() {
 				return (p.mouseX < p.width >> 1 && p.mouseY < p.height >> 1);
 		}

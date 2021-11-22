@@ -1,6 +1,5 @@
 package GUI.Space;
 
-import Function.Function;
 import Function.FunctionPart;
 import GUI.Grid;
 import GUI.Gui;

@@ -1,5 +1,4 @@
 import GUI.Gui;
-import complex_numbers.Complex;
 import processing.core.PApplet;
 
 public class Main extends PApplet {
