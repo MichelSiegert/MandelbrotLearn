@@ -147,7 +147,6 @@ public class Gui extends PApplet {
 				setupFunction();
 				executeFunctionSpace();
 				f = oldf;
-				
 		}
 		
 		/**
@@ -170,6 +169,7 @@ public class Gui extends PApplet {
 		 */
 		private void setupFunction() {
 				outputSpace.reset();
+				f.setFunctionpart(f.size()-1, new FunctionPart(outputSpace.mouseToComplex(),0));
 		}
 		
 		/**
