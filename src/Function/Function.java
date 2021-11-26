@@ -5,7 +5,8 @@ import complex_numbers.Complex;
 import java.util.ArrayList;
 
 public class Function {
-		private final ArrayList<FunctionPart> function = new ArrayList<FunctionPart>();
+		private ArrayList<FunctionPart> function = new ArrayList<FunctionPart>();
+		private ArrayList<FunctionPart> pushFunction = new ArrayList<FunctionPart>();
 		
 		public Function() {
 		}
@@ -96,5 +97,14 @@ public class Function {
 		
 		public void setFunctionpart(int i, FunctionPart functionPart) {
 				function.set(i,functionPart);
+		}
+		
+		public void pushFunction(){
+				pushFunction.addAll(function);
+		}
+		public void popFunction()
+		{
+				function = pushFunction;
+				pushFunction  = new ArrayList<FunctionPart>();
 		}
 }

@@ -144,10 +144,10 @@ public class Gui extends PApplet {
 		 */
 		private void handleFunctionSpace() {
 				// TODO this just copies the instance, which is not what I need here.
-				Function oldf = f;
+				f.pushFunction();
 				setupFunction();
 				executeFunctionSpace();
-				f = oldf;
+				f.popFunction();
 		}
 		
 		/**
