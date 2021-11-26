@@ -8,8 +8,9 @@ import complex_numbers.Complex;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-// TODO f'^1(x) > f'^2(x) if lim( q -> inifity) (f'^q(x)) = 0.
-
+// TODO f'^n(x) > f'^(n+1)(x) if lim( q -> inifity) (f'^q(x)) = 0.
+//TODO lim(q-> infinity) f'^q(0)= 0
+//true for values x²-c = x -> x²-x-c = 0;
 /**
  * creates the GUI. requires the last parameter to x^0 to work properly.
  */
