@@ -143,6 +143,7 @@ public class Gui extends PApplet {
 		 * it sets it up, and calculates everything required.
 		 */
 		private void handleFunctionSpace() {
+				// TODO this just copies the instance, which is not what I need here.
 				Function oldf = f;
 				setupFunction();
 				executeFunctionSpace();
