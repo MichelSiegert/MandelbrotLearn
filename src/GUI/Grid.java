@@ -61,11 +61,13 @@ public class Grid {
 		}
 		
 		private void drawPoints() {
+				PVector lastPos = calculatePosition(new Complex(0, 0));
 				for (Complex c : points) {
 						PVector position = calculatePosition(c);
 						p.stroke(0x00);
-						p.strokeWeight(3);
-						p.point(position.x, position.y);
+						p.strokeWeight(0.5f);
+						p.line(position.x, position.y, lastPos.x, lastPos.y);
+						lastPos = position;
 						p.strokeWeight(1);
 				}
 		}
